@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eternis — Бюра за Перфектното Работно Място</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ink: #0d0e0f;
+    --ink2: #1a1c1e;
+    --ink3: #242628;
+    --surface: #f5f2ec;
+    --warm: #ede8df;
+    --accent: #2a5c3f;
+    --accent2: #3d8a5e;
+    --gold: #c8a84b;
+    --text: #0d0e0f;
+    --muted: #6b6b6b;
+    --light: #f9f7f3;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--light);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ---- NAV ---- */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 4rem;
+    height: 68px;
+    background: rgba(245,242,236,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(42,92,63,0.12);
+  }
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--ink);
+    letter-spacing: -0.5px;
+    text-decoration: none;
+  }
+  .logo span { color: var(--accent); }
+  .nav-links {
+    display: flex; gap: 2.5rem; list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta {
+    background: var(--accent);
+    color: #fff !important;
+    padding: 0.5rem 1.25rem;
+    border-radius: 40px;
+    font-weight: 500 !important;
+  }
+  .nav-cta:hover { background: var(--accent2); color: #fff !important; }
+
+  /* ---- HERO ---- */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    gap: 4rem;
+    position: relative;
+    background: var(--light);
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(42,92,63,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(42,92,63,0.1);
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 40px;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(42,92,63,0.2);
+  }
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    line-height: 1.0;
+    letter-spacing: -2px;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .hero p {
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.75;
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--ink);
+    color: #fff;
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.25s, transform 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+  .btn-ghost {
+    color: var(--muted);
+    font-size: 0.9rem;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--accent); }
+  .btn-ghost svg { transition: transform 0.2s; }
+  .btn-ghost:hover svg { transform: translateX(4px); }
+
+  .hero-visual {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .desk-card {
+    width: 100%;
+    max-width: 500px;
+    aspect-ratio: 4/3;
+    background: var(--ink2);
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 40px 80px rgba(13,14,15,0.25);
+  }
+  .desk-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 30%, rgba(42,92,63,0.35) 0%, transparent 60%),
+      linear-gradient(160deg, #1a2820 0%, #0d0e0f 100%);
+  }
+  .desk-illustration {
+    position: absolute;
+    inset: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .desk-svg-wrap {
+    width: 80%;
+    opacity: 0.9;
+  }
+  .desk-badge {
+    position: absolute;
+    bottom: 24px; right: 24px;
+    background: rgba(245,242,236,0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 12px 16px;
+    color: #fff;
+  }
+  .desk-badge-label { font-size: 0.65rem; color: rgba(255,255,255,0.5); letter-spacing: 1px; text-transform: uppercase; }
+  .desk-badge-val { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; color: #fff; }
+  .desk-badge2 {
+    position: absolute;
+    top: 24px; left: 24px;
+    background: var(--accent);
+    border-radius: 10px;
+    padding: 10px 16px;
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  /* ---- STATS ---- */
+  .stats-bar {
+    background: var(--ink);
+    padding: 2.5rem 4rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    text-align: center;
+  }
+  .stat-item {}
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -1px;
+  }
+  .stat-num span { color: var(--gold); }
+  .stat-label {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+  }
+
+  /* ---- SECTION COMMON ---- */
+  section { padding: 7rem 4rem; }
+  .section-tag {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-tag::before {
+    content: '';
+    width: 24px; height: 2px;
+    background: var(--accent);
+  }
+  h2.section-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    letter-spacing: -1.5px;
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+  .section-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 550px;
+    margin-bottom: 3.5rem;
+  }
+
+  /* ---- AUDIENCE ---- */
+  #audience { background: var(--warm); }
+  .audience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+  .audience-card {
+    background: var(--light);
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    border: 1px solid rgba(42,92,63,0.1);
+    transition: transform 0.25s, box-shadow 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .audience-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .audience-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(13,14,15,0.1); }
+  .audience-card:hover::after { transform: scaleX(1); }
+  .audience-icon {
+    width: 48px; height: 48px;
+    background: rgba(42,92,63,0.1);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+  .audience-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  .audience-card p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ---- PROCESS ---- */
+  #process { background: var(--light); }
+  .process-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .process-steps { display: flex; flex-direction: column; gap: 1.5rem; }
+  .step {
+    display: flex; gap: 1.25rem; align-items: flex-start;
+    padding: 1.5rem;
+    border-radius: 14px;
+    background: transparent;
+    border: 1px solid rgba(13,14,15,0.08);
+    transition: background 0.25s, border-color 0.25s;
+    cursor: default;
+  }
+  .step:hover {
+    background: var(--warm);
+    border-color: rgba(42,92,63,0.2);
+  }
+  .step-num {
+    width: 36px; height: 36px; min-width: 36px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .step-content h4 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+    color: var(--ink);
+  }
+  .step-content p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+  .process-visual {
+    background: var(--ink2);
+    border-radius: 20px;
+    padding: 3rem 2.5rem;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .process-visual::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -20%;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(42,92,63,0.4) 0%, transparent 70%);
+  }
+  .org-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 1.5rem;
+  }
+  .org-tree { display: flex; flex-direction: column; gap: 0.75rem; position: relative; z-index: 1; }
+  .org-node {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .org-node.top { background: var(--accent); border-color: var(--accent2); font-weight: 700; }
+  .org-node.indent { margin-left: 1.5rem; font-size: 0.8rem; }
+  .org-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); min-width: 8px; }
+  .org-dot.green { background: #5cc98a; }
+
+  /* ---- INVESTMENT ---- */
+  #investment { background: var(--warm); }
+  .inv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .inv-card {
+    background: var(--light);
+    border-radius: 18px;
+    padding: 2.5rem;
+    border: 1px solid rgba(13,14,15,0.08);
+  }
+  .inv-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    color: var(--ink);
+  }
+  .inv-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(13,14,15,0.06);
+    font-size: 0.9rem;
+  }
+  .inv-item:last-child { border-bottom: none; }
+  .inv-item span:first-child { color: var(--muted); }
+  .inv-item span:last-child { font-weight: 500; color: var(--ink); }
+  .inv-tag {
+    display: inline-block;
+    background: rgba(42,92,63,0.1);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+
+  .inv-highlight {
+    background: var(--ink);
+    border-radius: 18px;
+    padding: 2.5rem;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .inv-highlight::before {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    right: -20%;
+    width: 250px; height: 250px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(42,92,63,0.5) 0%, transparent 70%);
+  }
+  .inv-highlight h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    position: relative; z-index: 1;
+  }
+  .inv-highlight p {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.75;
+    position: relative; z-index: 1;
+    margin-bottom: 1.5rem;
+  }
+  .inv-reasons { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; position: relative; z-index: 1; }
+  .inv-reasons li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.5;
+  }
+  .inv-reasons li::before {
+    content: '✓';
+    width: 20px; height: 20px; min-width: 20px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  /* ---- TEAM ---- */
+  #team { background: var(--light); }
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+  .team-card {
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    background: var(--warm);
+    border: 1px solid rgba(42,92,63,0.1);
+    text-align: center;
+    transition: transform 0.25s;
+  }
+  .team-card:hover { transform: translateY(-5px); }
+  .avatar {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.2rem;
+    margin: 0 auto 1rem;
+    color: #fff;
+  }
+  .avatar.a1 { background: var(--accent); }
+  .avatar.a2 { background: var(--ink2); }
+  .avatar.a3 { background: #b85c38; }
+  .avatar.a4 { background: #5a7db5; }
+  .avatar.a5 { background: var(--gold); }
+  .team-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+  }
+  .team-card p { font-size: 0.82rem; color: var(--muted); }
+
+  /* ---- CTA ---- */
+  .cta-section {
+    background: var(--ink);
+    padding: 7rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(42,92,63,0.35) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-section h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 800;
+    letter-spacing: -2px;
+    color: #fff;
+    margin-bottom: 1.25rem;
+    position: relative; z-index: 1;
+  }
+  .cta-section h2 em { font-style: normal; color: var(--gold); }
+  .cta-section p {
+    color: rgba(255,255,255,0.55);
+    font-size: 1rem;
+    max-width: 500px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.75;
+    position: relative; z-index: 1;
+  }
+  .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+  .btn-white {
+    background: #fff;
+    color: var(--ink);
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-white:hover { background: var(--surface); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
+    border: 1px solid rgba(255,255,255,0.2);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: rgba(255,255,255,0.5); color: #fff; transform: translateY(-2px); }
+
+  /* ---- FOOTER ---- */
+  footer {
+    background: #080909;
+    padding: 3rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: #fff;
+    text-decoration: none;
+  }
+  .footer-logo span { color: var(--accent2); }
+  footer p { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
+  .footer-links { display: flex; gap: 2rem; list-style: none; }
+  .footer-links a { font-size: 0.8rem; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: rgba(255,255,255,0.7); }
+
+  /* ---- ANIMATIONS ---- */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-content > * { animation: fadeUp 0.7s ease both; }
+  .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-content > *:nth-child(2) { animation-delay: 0.2s; }
+  .hero-content > *:nth-child(3) { animation-delay: 0.3s; }
+  .hero-content > *:nth-child(4) { animation-delay: 0.4s; }
+  .hero-visual { animation: fadeUp 0.8s ease 0.3s both; }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 900px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; gap: 3rem; }
+    .hero-visual { order: -1; }
+    section { padding: 5rem 1.5rem; }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); padding: 2rem 1.5rem; }
+    .process-grid { grid-template-columns: 1fr; }
+    .inv-grid { grid-template-columns: 1fr; }
+    .cta-section { padding: 5rem 1.5rem; }
+    footer { flex-direction: column; text-align: center; padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">ETERNIS<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#audience">За кого</a></li>
+    <li><a href="#process">Производство</a></li>
+    <li><a href="#investment">Инвестиция</a></li>
+    <li><a href="#team">Екип</a></li>
+    <li><a href="#contact" class="nav-cta">Контакт</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-tag">Специализирани бюра · Произведено в България</div>
+    <h1>Работното ти място.<br><em>Направено правилно.</em></h1>
+    <p>Eternis проектира и произвежда бюра за хора, които прекарват много часове пред компютъра — геймъри, студенти, фрийлансъри и малки офиси. Издръжливост, ергономия, стил.</p>
+    <div class="hero-btns">
+      <a href="#audience" class="btn-primary">
+        Разгледай продуктите
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#investment" class="btn-ghost">
+        За инвеститори
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="desk-card">
+      <div class="desk-illustration">
+        <!-- Desk SVG illustration -->
+        <svg class="desk-svg-wrap" viewBox="0 0 400 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Desk surface -->
+          <rect x="30" y="160" width="340" height="18" rx="4" fill="#2a5c3f" opacity="0.9"/>
+          <!-- Desk legs -->
+          <rect x="50" y="178" width="14" height="80" rx="3" fill="#1e4530"/>
+          <rect x="336" y="178" width="14" height="80" rx="3" fill="#1e4530"/>
+          <!-- Monitor stand -->
+          <rect x="185" y="140" width="30" height="22" rx="2" fill="#3d3d3d"/>
+          <rect x="175" y="154" width="50" height="8" rx="2" fill="#333"/>
+          <!-- Monitor -->
+          <rect x="110" y="60" width="180" height="120" rx="8" fill="#1a1a1a" stroke="#3d8a5e" stroke-width="1.5"/>
+          <rect x="118" y="68" width="164" height="104" rx="4" fill="#0d1a12"/>
+          <!-- Screen glow -->
+          <rect x="118" y="68" width="164" height="104" rx="4" fill="url(#screenGlow)" opacity="0.7"/>
+          <!-- Screen content lines -->
+          <rect x="132" y="82" width="80" height="6" rx="2" fill="#3d8a5e" opacity="0.8"/>
+          <rect x="132" y="96" width="110" height="4" rx="2" fill="rgba(255,255,255,0.2)"/>
+          <rect x="132" y="108" width="95" height="4" rx="2" fill="rgba(255,255,255,0.15)"/>
+          <rect x="132" y="120" width="120" height="4" rx="2" fill="rgba(255,255,255,0.1)"/>
+          <rect x="132" y="134" width="60" height="4" rx="2" fill="rgba(255,255,255,0.1)"/>
+          <!-- Keyboard -->
+          <rect x="140" y="150" width="120" height="10" rx="3" fill="#2a2a2a"/>
+          <!-- Mouse -->
+          <rect x="285" y="147" width="26" height="34" rx="13" fill="#2a2a2a"/>
+          <line x1="298" y1="147" x2="298" y2="165" stroke="#444" stroke-width="1"/>
+          <!-- Small items on desk -->
+          <rect x="55" y="148" width="28" height="14" rx="3" fill="#c8a84b" opacity="0.6"/>
+          <rect x="330" y="142" width="16" height="20" rx="2" fill="#5a7db5" opacity="0.5"/>
+          <!-- Cable -->
+          <path d="M 298 178 Q 298 200 260 205 Q 220 210 200 210" stroke="#444" stroke-width="2" fill="none"/>
+          <defs>
+            <radialGradient id="screenGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#3d8a5e" stop-opacity="0.5"/>
+              <stop offset="100%" stop-color="#3d8a5e" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="desk-badge2">Eternis Pro</div>
+      <div class="desk-badge">
+        <div class="desk-badge-label">Издръжливост</div>
+        <div class="desk-badge-val">10+ год.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">4<span>+</span></div>
+    <div class="stat-label">Целеви сегмента</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num"><span>~</span>Sofia</div>
+    <div class="stat-label">Производство близо до</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">5<span>-ма</span></div>
+    <div class="stat-label">Члена в екипа</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">100<span>%</span></div>
+    <div class="stat-label">Контрол на качеството</div>
+  </div>
+</div>
+
+<!-- AUDIENCE -->
+<section id="audience">
+  <div class="section-tag">Целева група</div>
+  <h2 class="section-title">За кого е Eternis?</h2>
+  <p class="section-sub">Нашите бюра са проектирани за всеки, който прекарва много часове пред компютъра и заслужава удобно, стабилно работно място.</p>
+  <div class="audience-grid">
+    <div class="audience-card">
+      <div class="audience-icon">🎮</div>
+      <h3>Геймъри</h3>
+      <p>Стабилна повърхност, кабелни канали и достатъчно пространство за перифорийни устройства.</p>
+    </div>
+    <div class="audience-card">
+      <div class="audience-icon">📚</div>
+      <h3>Ученици</h3>
+      <p>Ергономичен дизайн и достатъчно място за учебни материали и компютър.</p>
+    </div>
+    <div class="audience-card">
+      <div class="audience-icon">🎓</div>
+      <h3>Студенти</h3>
+      <p>Функционален и стилен — идеален за малки стаи и интензивна работа.</p>
+    </div>
+    <div class="audience-card">
+      <div class="audience-icon">🏠</div>
+      <h3>Home Office</h3>
+      <p>Продуктивност от вкъщи с profesionalen вид и удобство за дълги работни дни.</p>
+    </div>
+    <div class="audience-card">
+      <div class="audience-icon">🏢</div>
+      <h3>Малки офиси</h3>
+      <p>Издръжливи и лесни за поддръжка — правилният избор за малки екипи.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="process-grid">
+    <div>
+      <div class="section-tag">Производство</div>
+      <h2 class="section-title">Как правим всяко бюро?</h2>
+      <p class="section-sub">Производствената ни база е близо до София — извън града, за по-ниски разходи и по-добра организация.</p>
+      <div class="process-steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>Доставка на материали</h4>
+            <p>Внимателен подбор на качествени материали от надеждни доставчици.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>Обработка и сглобяване</h4>
+            <p>Прецизна обработка и ръчно сглобяване от опитни работници.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>Контрол на качеството</h4>
+            <p>Всяко бюро се проверява за здравина и надеждност преди напускане на завода.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>Опаковане и доставка</h4>
+            <p>Безопасна опаковка и навременна доставка до клиента.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="process-visual">
+      <div class="org-title">Организационна структура</div>
+      <div class="org-tree">
+        <div class="org-node top">
+          <div class="org-dot green"></div>
+          Управител
+        </div>
+        <div class="org-node indent">
+          <div class="org-dot"></div>
+          Производствен отговорник
+        </div>
+        <div class="org-node indent">
+          <div class="org-dot"></div>
+          Работник 1
+        </div>
+        <div class="org-node indent">
+          <div class="org-dot"></div>
+          Работник 2
+        </div>
+        <div class="org-node indent">
+          <div class="org-dot"></div>
+          Работник 3
+        </div>
+        <div class="org-node indent">
+          <div class="org-dot"></div>
+          Маркетинг &amp; Продажби
+        </div>
+      </div>
+      <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); position: relative; z-index: 1;">
+        <div style="font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 0.75rem;">Философия</div>
+        <p style="font-size: 0.85rem; color: rgba(255,255,255,0.6); line-height: 1.65;">Проста структура — бърза комуникация и ефективна работа. Минимизиране на отпадъците в производството.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INVESTMENT -->
+<section id="investment">
+  <div class="section-tag">Финансиране</div>
+  <h2 class="section-title">Защо да инвестирате в Eternis?</h2>
+  <p class="section-sub">Пазарът на домашни офиси и гейминг оборудване продължава да расте. Ние предлагаме издръжливост, добра цена и реален потенциал за развитие.</p>
+  <div class="inv-grid">
+    <div>
+      <div class="inv-card" style="margin-bottom: 1.5rem;">
+        <h3>Източници на финансиране</h3>
+        <div class="inv-item">
+          <span>Собствен капитал</span>
+          <span class="inv-tag">Основен</span>
+        </div>
+        <div class="inv-item">
+          <span>Малък бизнес кредит</span>
+          <span class="inv-tag">Планиран</span>
+        </div>
+        <div class="inv-item">
+          <span>Програми за МСП</span>
+          <span class="inv-tag">Активен</span>
+        </div>
+        <div class="inv-item">
+          <span>Частни инвеститори</span>
+          <span class="inv-tag">Бъдещ</span>
+        </div>
+      </div>
+      <div class="inv-card">
+        <h3>Предимства за инвеститора</h3>
+        <div class="inv-item">
+          <span>Производство извън София</span>
+          <span style="font-weight:500; color: var(--accent)">↓ Разходи</span>
+        </div>
+        <div class="inv-item">
+          <span>Ниски начални разходи</span>
+          <span style="font-weight:500; color: var(--accent)">↓ Риск</span>
+        </div>
+        <div class="inv-item">
+          <span>Разширяване на продуктите</span>
+          <span style="font-weight:500; color: var(--accent)">↑ Потенциал</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="inv-highlight">
+      <h3>Стабилна идея с реална перспектива</h3>
+      <p>Пазарът на домашни офиси и гейминг оборудване продължава да расте. Нашият продукт предлага издръжливост и добра цена — точно това търси пазарът.</p>
+      <ul class="inv-reasons">
+        <li>Растящ пазар на home office и геймъри</li>
+        <li>Производство близо до София намалява логистиката</li>
+        <li>Проста и ефективна организационна структура</li>
+        <li>Потенциал за разширяване на продуктовата гама</li>
+        <li>Стартираме стабилно на българския пазар</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="section-tag">Нашият екип</div>
+  <h2 class="section-title">Хората зад Eternis</h2>
+  <p class="section-sub">Малък, но мотивиран екип с ясна визия и желание да изгради нещо трайно.</p>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="avatar a1">УП</div>
+      <h3>Управител</h3>
+      <p>Стратегия, финанси и развитие на бизнеса</p>
+    </div>
+    <div class="team-card">
+      <div class="avatar a2">ПО</div>
+      <h3>Производствен отговорник</h3>
+      <p>Координира производствения процес</p>
+    </div>
+    <div class="team-card">
+      <div class="avatar a3">Р</div>
+      <h3>Производствен екип</h3>
+      <p>Трима опитни работници на терена</p>
+    </div>
+    <div class="team-card">
+      <div class="avatar a4">МП</div>
+      <h3>Маркетинг &amp; Продажби</h3>
+      <p>Изграждане на марката и клиентска база</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <h2>Готов за <em>перфектното</em><br>работно място?</h2>
+  <p>Свържи се с нас или научи повече за възможностите за инвестиция и партньорство с Eternis.</p>
+  <div class="cta-btns">
+    <a href="mailto:info@eternis.bg" class="btn-white">Свържи се с нас</a>
+    <a href="#process" class="btn-outline">Научи повече</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">ETERNIS<span>.</span></a>
+  <p>© 2025 Eternis. Произведено в България.</p>
+  <ul class="footer-links">
+    <li><a href="#audience">Продукти</a></li>
+    <li><a href="#process">За нас</a></li>
+    <li><a href="#investment">Инвестиция</a></li>
+    <li><a href="#contact">Контакт</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>
+
+
